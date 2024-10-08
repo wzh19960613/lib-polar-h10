@@ -8,9 +8,10 @@
 // lib-polar-h10 = "0.1.0"
 // tokio = { "version" = "1.40.0", features = ["rt-multi-thread", "tokio/macros"] }
 
-use super::*;
 use std::sync::{Arc, Mutex};
 use std::time::Duration;
+
+use lib_polar_h10::{ PolarH10Error, PolarH10Helper }; 
 use tokio::time;
 
 #[tokio::main]
