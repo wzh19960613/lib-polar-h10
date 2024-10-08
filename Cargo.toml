@@ -2,6 +2,12 @@
 name = "lib-polar-h10"
 version = "0.1.0"
 edition = "2021"
+authors = ["Wzh <wzh@uvwee.com>"]
+description = "A lib for get heart rate from Polar H10"
+license = "MIT"
+keywords = ["Polar", "H10", "ble", "heart", "rate"]
+repository = "https://github.com/wzh19960613/lib-polar-h10"
+readme = "README.md"
 
 [dependencies]
 btleplug = "0.11.5"
