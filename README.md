@@ -6,7 +6,7 @@
 // lib-polar-h10 = { "version" = "0.1.0", features = ["tokio-rt"] }
 // Or
 // lib-polar-h10 = "0.1.0"
-// tokio = { "version" = "1.40.0", features = ["rt-multi-thread", "tokio/macros"] }
+// tokio = { "version" = "1.40.0", features = ["rt-multi-thread", "macros"] }
 
 use std::sync::{Arc, Mutex};
 use std::time::Duration;

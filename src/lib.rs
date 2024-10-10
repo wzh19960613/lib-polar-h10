@@ -80,6 +80,9 @@ impl PolarH10Helper {
             let device_callbacks = self.device_callbacks.clone();
             let should_continue_polling = self.should_continue_polling.clone();
             let polling_thread_exists = self.polling_thread_exists.clone();
+            {
+                self.scaned.clone().lock().unwrap().clear();
+            }
             let scaned = self.scaned.clone();
 
             tokio::spawn(async move {
@@ -111,6 +114,9 @@ impl PolarH10Helper {
 
     pub async fn stop_scan(&self) -> Result<(), PolarH10Error> {
         self.should_continue_polling.store(false, Ordering::SeqCst);
+        {
+            self.device_callbacks.lock().unwrap().clear();
+        }
         ble(self.adapter.stop_scan()).await
     }
 
@@ -146,6 +152,16 @@ impl PolarH10Helper {
         Ok(())
     }
 
+    pub async fn disconnect(&self) -> Result<(), PolarH10Error> {
+        let device = { self.connected_device.lock().unwrap().clone() };
+        if let Some(device) = device {
+            self.hr_callbacks.lock().unwrap().clear();
+            self.battery_callbacks.lock().unwrap().clear();
+            ble(device.disconnect()).await?
+        }
+        Ok(())
+    }
+
     pub fn on_battery_update<F: Fn(u8) + Send + 'static>(&self, callback: F) {
         self.battery_callbacks
             .lock()
@@ -166,7 +182,8 @@ impl PolarH10Helper {
     }
 
     async fn write_hr_measurement(&self, value: u8) -> Result<(), PolarH10Error> {
-        if let Some(device) = self.connected_device.lock().unwrap().as_ref() {
+        let device = { self.connected_device.lock().unwrap().clone() };
+        if let Some(device) = device {
             let chars = &device.characteristics();
             let hr_char = get_characteristic(chars, HR_CHARACTERISTIC_UUID)?;
             ble(device.write(hr_char, &[value], WriteType::WithoutResponse)).await?;

@@ -1,6 +1,6 @@
 [package]
 name = "lib-polar-h10"
-version = "0.1.0"
+version = "0.1.1"
 edition = "2021"
 authors = ["Wzh <wzh@uvwee.com>"]
 description = "A lib for get heart rate from Polar H10"
