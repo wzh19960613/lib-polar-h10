@@ -1,6 +1,6 @@
 [package]
 name = "lib-polar-h10"
-version = "0.1.1"
+version = "0.1.2"
 edition = "2021"
 authors = ["Wzh <wzh@uvwee.com>"]
 description = "A lib for get heart rate from Polar H10"
@@ -10,10 +10,10 @@ repository = "https://github.com/wzh19960613/lib-polar-h10"
 readme = "README.md"
 
 [dependencies]
-btleplug = "0.11.5"
+btleplug = "0.11.6"
 futures = "0.3.31"
-tokio = "1.40.0"
-uuid = "1.10.0"
+tokio = "1.41.1"
+uuid = "1.11.0"
 
 [features]
 tokio-rt = ["tokio/rt-multi-thread", "tokio/macros"]
